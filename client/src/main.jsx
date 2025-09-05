@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // import './index.css'
 import App from './App.jsx'
-import { Index } from './pages/index.jsx';
+import { Index } from './pages/home.jsx';
 import { Login } from './security/login.jsx';
 import { Protected } from './security/protected.jsx';
 import { Signup } from './security/signup.jsx';
