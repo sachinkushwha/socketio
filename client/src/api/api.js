@@ -1,5 +1,5 @@
 export const Longin=async(logindata)=>{
-    const response=await fetch('https://socketio-iota.vercel.app/login',{
+    const response=await fetch('https://socketio-q50f.onrender.com/login',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify(logindata)
@@ -15,7 +15,7 @@ export const Longin=async(logindata)=>{
 }
 
 export const Signupapi=async(signupdata)=>{
-const response=await fetch('https://socketio-iota.vercel.app/signup',{
+const response=await fetch('https://socketio-q50f.onrender.com/signup',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(signupdata)
@@ -25,7 +25,7 @@ return result;
 }
 
 export const User=async()=>{
-    const response = await fetch('https://socketio-iota.vercel.app/user');
+    const response = await fetch('https://socketio-q50f.onrender.com/user');
     const result = await response.json();
     console.log(result);
     return result;
