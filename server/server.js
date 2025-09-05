@@ -1,34 +1,43 @@
-const express=require('express');
-const http=require('http');
-const socketIo=require('socket.io')
-const cors=require('cors');
-const app=express();
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io')
+const cors = require('cors');
+const publicRouter = require('./router/publicrouter');
+const app = express();
+const mongoose = require('mongoose');
+const protectedRouter=require('./router/protectedRouter');
+require('dotenv').config();
 
-const server=http.createServer(app);
-const io=socketIo(server,{
-    cors:{origin:"*"}
+const server = http.createServer(app);
+const io = socketIo(server, {
+    cors: { origin: "*" }
 })
 
 app.use(cors());
 
-app.use('/',(req,res)=>{
+app.use(express.json());
+app.use(publicRouter);
+app.use(protectedRouter);
+app.use('/', (req, res) => {
     res.json('server is live')
 })
-const users={};
-io.on('connection',(socket)=>{
-    console.log('new connection connected'); 
-   
-    socket.on('register',(userId)=>{
-        console.log("userid",userId);
-        users[userId]=socket.id;
-        console.log("->",users);
+const users = {};
+io.on('connection', (socket) => {
+    console.log('new connection connected');
+
+    socket.on('register', (userId) => {
+        console.log("userid", userId);
+        users[userId] = socket.id;
+        console.log("->", users);
     });
 
-    socket.on('sendmessage',({reciverid,text})=>{
-        const reciversocket=users[reciverid];
-        if(reciversocket){
-            console.log(reciverid);
-            io.to(reciversocket).emit('getmessage',text);
+    socket.on('sendmessage', ({ reciverid, senderid, text }) => {
+        console.log("reciver",reciverid);
+        const reciversocket = users[reciverid];
+        console.log(reciversocket);
+        if (reciversocket) {
+            console.log("ffsc",senderid);
+            io.to(reciversocket).emit('getmessage', { sender: senderid, text: text,reciver: reciverid });
             console.log(text);
         }
     })
@@ -36,6 +45,8 @@ io.on('connection',(socket)=>{
 
 })
 
-server.listen(3000,()=>{
-    console.log('server start on http://localhost:3000');
+mongoose.connect(process.env.MONGO_URL).then(() => {
+    server.listen(3000, () => {
+        console.log('server start on http://localhost:3000');
+    })
 })
