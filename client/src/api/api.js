@@ -15,7 +15,7 @@ export const Longin=async(logindata)=>{
 }
 
 export const Signupapi=async(signupdata)=>{
-const response=await fetch('http://localhost:3000/signup',{
+const response=await fetch('https://socketio-iota.vercel.app/signup',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(signupdata)
@@ -25,7 +25,7 @@ return result;
 }
 
 export const User=async()=>{
-    const response = await fetch('http://localhost:3000/user');
+    const response = await fetch('https://socketio-iota.vercel.app/user');
     const result = await response.json();
     console.log(result);
     return result;
