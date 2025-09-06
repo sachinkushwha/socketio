@@ -6,40 +6,53 @@ export const Chats = ({ username }) => {
   const { id } = useParams();
   const [msg, setmsg] = useState('');
   const [chats, setChat] = useState([]);
-  const newmsg={
-    text:msg,
-    sender:localStorage.getItem('chatuserid'),
-    reciver:id
+
+  const newmsg = {
+    text: msg,
+    sender: localStorage.getItem('chatuserid'),
+    reciver: id
+
   }
+  useEffect(() => {
+    const fchat = JSON.parse(localStorage.getItem('chatchat'));
+    console.log("pc", fchat);
+    if (fchat) {
+      setChat(fchat);
+    } else {
+      setChat([]);
+    }
+  }, [localStorage.getItem('chatchat')]);
   const handlesend = () => {
+    localStorage.setItem('chatchat', JSON.stringify([...chats, newmsg]));
     socket.emit('sendmessage', { 'reciverid': id, 'senderid': localStorage.getItem('chatuserid'), 'text': newmsg.text });
     setChat(prev => [...prev, newmsg]);
     setmsg('');
 
     console.log(msg);
   }
-  useEffect(() => {
-    socket.emit('register', localStorage.getItem('chatuserid'));
-  }, [])
 
   useEffect(() => {
 
     const handler = (msg) => {
-      setChat(prev => [...prev, msg]);
+      setChat(prev => {
+        const update = [...prev, msg];
+        return update;
+      });
+
     }
     socket.on('getmessage', handler);
     return () => {
       socket.off("getmessage", handler);
     };
   }, []);
-  
-const myId = localStorage.getItem("chatuserid");
 
-const chatss = chats.filter(
-  m =>
-    (m.sender === myId && m.reciver === id) || 
-    (m.sender === id && m.reciver === myId)    
-);
+  const myId = localStorage.getItem("chatuserid");
+
+  const chatss = chats.filter(
+    m =>
+      (m.sender === myId && m.reciver === id) ||
+      (m.sender === id && m.reciver === myId)
+  );
 
   console.log(chats);
   return <>
@@ -62,8 +75,8 @@ const chatss = chats.filter(
           <div
             key={i}
             className={`p-2 rounded-lg max-w-xs ${c.sender === localStorage.getItem("chatuserid")
-                ? "bg-blue-500 text-white ml-auto"
-                : "bg-gray-200 text-gray-800"
+              ? "bg-blue-500 text-white ml-auto"
+              : "bg-gray-200 text-gray-800"
               }`}
           >
             {c.text}
@@ -71,7 +84,7 @@ const chatss = chats.filter(
         ))}
       </div>
 
-      
+
 
       {/* Input area */}
       <div className="flex items-center border-t p-3 bg-white">
