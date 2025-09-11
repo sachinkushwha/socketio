@@ -7,6 +7,14 @@ export const Chats = ({ username }) => {
   const [msg, setmsg] = useState('');
   const [chats, setChat] = useState([]);
 
+  const handleclearchat=()=>{
+    const msg=JSON.parse(localStorage.getItem('chatchat'));
+    const clrchat=msg.filter(c=>c.reciver!==String(id) && c.sender!==String(id));
+    localStorage.setItem('chatchat',JSON.stringify(clrchat));
+    console.log('jach',clrchat);
+    setChat(clrchat);
+    }
+
   const newmsg = {
     text: msg,
     sender: localStorage.getItem('chatuserid'),
@@ -57,6 +65,7 @@ export const Chats = ({ username }) => {
   console.log(chats);
   return <>
     <div className="flex flex-col h-screen bg-gray-100">
+    
       {/* Top bar */}
       <div className="flex items-center justify-between bg-blue-600 text-white px-4 py-3 shadow">
         <Link
@@ -65,7 +74,9 @@ export const Chats = ({ username }) => {
         >
           ⬅ Back
         </Link>
+        
         <h1 className="text-lg font-bold">{username}</h1>
+        <p className="cursor-pointer font-bold text-red-500" onClick={handleclearchat}>Clear Chat</p>
         <div />
       </div>
 

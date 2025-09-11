@@ -1,25 +1,31 @@
 import { Outlet } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import socket from "./components/socket";
+import { noticontex } from "./contexprovider/noticontex";
 function App() {
-   useEffect(() => {
+  const [noti, setnoti] = useState('+')
+  useEffect(() => {
     socket.emit('register', localStorage.getItem('chatuserid'));
   }, [])
 
-   useEffect(() => {
-      const handler = (msg) => {
-        const fchat=JSON.parse(localStorage.getItem('chatchat'));
-          const update=[...fchat, msg];
-          localStorage.setItem('chatchat',JSON.stringify(update));
-      }
-      socket.on('getmessage', handler);
-      return () => {
-        socket.off("getmessage", handler);
-      };
-    }, []);
+  useEffect(() => {
+    const handler = (msg) => {
+      const fchat = JSON.parse(localStorage.getItem('chatchat'));
+      const update = [...fchat, msg];
+      localStorage.setItem('chatchat', JSON.stringify(update));
+      setnoti('new')
+    }
+    socket.on('getmessage', handler);
+    return () => {
+      socket.off("getmessage", handler);
+    };
+  }, []);
 
   return (
-  <Outlet/>
+    <noticontex.Provider value={{noti,setnoti}}>
+      <Outlet />
+    </noticontex.Provider>
+
   );
 }
 

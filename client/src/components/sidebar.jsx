@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User } from "../api/api";
 import { useState } from "react";
+import { noticontex } from "../contexprovider/noticontex";
 function Mainlogic({setusername}) {
+  const {noti,setnoti}=useContext(noticontex);
   const navigate=useNavigate();
   const [user, setusers] = useState([]);
   useEffect(() => {
@@ -31,11 +33,13 @@ const handlelogout=()=>{
           {users.map((u, ind) => (
             <Link
               key={ind}
-              onClick={()=>setusername(u.name)}
+              onClick={()=>{
+                setnoti('-')
+                setusername(u.name)}}
               to={`/chat/${u._id}`}
               className="block bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 text-blue-700 font-medium hover:bg-blue-100 hover:text-blue-900 transition"
             >
-             {u.name}
+             {u.name}{noti}
             </Link>
           ))}
         </div>
