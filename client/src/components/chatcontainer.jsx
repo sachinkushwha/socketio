@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import socket from "./socket";
+import { noticontex } from "../contexprovider/noticontex";
 export const Chats = ({ username }) => {
   const { id } = useParams();
   const [msg, setmsg] = useState('');
@@ -23,7 +24,6 @@ export const Chats = ({ username }) => {
   }
   useEffect(() => {
     const fchat = JSON.parse(localStorage.getItem('chatchat'));
-    console.log("pc", fchat);
     if (fchat) {
       setChat(fchat);
     } else {
@@ -68,12 +68,12 @@ export const Chats = ({ username }) => {
     
       {/* Top bar */}
       <div className="flex items-center justify-between bg-blue-600 text-white px-4 py-3 shadow">
-        <Link
+        {/* <Link
           to="/"
           className="text-sm font-semibold hover:underline hover:text-gray-200"
         >
           ⬅ Back
-        </Link>
+        </Link> */}
         
         <h1 className="text-lg font-bold">{username}</h1>
         <p className="cursor-pointer font-bold text-red-500" onClick={handleclearchat}>Clear Chat</p>

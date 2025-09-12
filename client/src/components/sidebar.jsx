@@ -3,43 +3,77 @@ import { Link, useNavigate } from "react-router-dom";
 import { User } from "../api/api";
 import { useState } from "react";
 import { noticontex } from "../contexprovider/noticontex";
-function Mainlogic({setusername}) {
-  const {noti,setnoti}=useContext(noticontex);
-  const navigate=useNavigate();
+import { Header } from "./header";
+function Mainlogic({ setusername }) {
+  const { noti, setnoti } = useContext(noticontex);
+  const [newusers,setnewusers]=useState({});
+  const navigate = useNavigate();
   const [user, setusers] = useState([]);
   useEffect(() => {
     User().then((result) => {
-      console.log("user",result);
+      console.log("user", result);
       setusers(result);
     })
   }, []);
-const handlelogout=()=>{
-  localStorage.removeItem('chattoken');
-  navigate('/login');
 
-}
+useEffect(()=>{
+  if(noti){
+    setnewusers((prev)=>({
+      ...prev,[noti]:true
+  }))
+  }
+  console.log('newuse',newusers);
+},[noti])
 
-  
+
+  const handlelogout = () => {
+    localStorage.removeItem('chattoken');
+    navigate('/login');
+
+  }
+
+  const usr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 12];
   const users = user.filter(u => u.email != localStorage.getItem('chatemail'));
   return (
     <>
-    <p onClick={handlelogout} className="cursor-pointer text-xl items-center text-blue-600 flex justify-center font-bold mt-2 bg-gray-100">Logout</p>
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+      <Header />
+
+
+      {/* <p onClick={handlelogout} className="cursor-pointer text-xl items-center text-blue-600 flex justify-center font-bold mt-2 bg-black">Logout</p> */}
+      <div className="flex flex-col items-center justify-center h-[calc(100vh-126px)] bg-black ">
         {/* Heading */}
-        <h1 className="text-2xl font-bold mb-6 text-blue-600">Chat App</h1>
 
         {/* Users List */}
-        <div className="bg-gray-100  rounded-2xl p-6 w-60 space-y-4">
+        <div className="bg-black  rounded-2xl p-0 w-65 space-y-4  overflow-y-auto hide-scrollbar">
           {users.map((u, ind) => (
             <Link
               key={ind}
-              onClick={()=>{
-                setnoti('-')
-                setusername(u.name)}}
+              onClick={() => {
+                setnewusers((prev)=>({
+                  ...prev,[u._id]:false
+                }))
+                setusername(u.name)
+              }}
               to={`/chat/${u._id}`}
-              className="block bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 text-blue-700 font-medium hover:bg-blue-100 hover:text-blue-900 transition"
+              className="flex items-center gap-4 bg-black px-4 py-3 text-white font-medium hover:bg-gradient-to-b from-violet-600 to-violet-500 hover:text-blue-900 transition rounded-lg"
             >
-             {u.name}{noti}
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white font-bold">
+                {u.name.charAt(0).toUpperCase()}
+              </div>
+              {newusers[u._id]? (
+                <div className="flex flex-col ">
+                  <h3 className="text-xl">{u.name+"new"}</h3>
+                  <p className="text-sm text-gray-400 truncate w-34">hey! there i'm using wassap  </p>
+                </div>
+                ):(
+                  <div className="flex flex-col ">
+                  <h3 className="text-xl">{u.name}</h3>
+                  <p className="text-sm text-gray-400 truncate w-34">hey! there i'm using wassap  </p>
+                </div>
+                )}
+
+
+                  
             </Link>
           ))}
         </div>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import socket from "./components/socket";
 import { noticontex } from "./contexprovider/noticontex";
 function App() {
-  const [noti, setnoti] = useState('+')
+  const [noti, setnoti] = useState('')
   useEffect(() => {
     socket.emit('register', localStorage.getItem('chatuserid'));
   }, [])
@@ -13,7 +13,8 @@ function App() {
       const fchat = JSON.parse(localStorage.getItem('chatchat'));
       const update = [...fchat, msg];
       localStorage.setItem('chatchat', JSON.stringify(update));
-      setnoti('new')
+      setnoti(msg.sender)
+      console.log('sender',msg.sender);
     }
     socket.on('getmessage', handler);
     return () => {

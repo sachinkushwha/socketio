@@ -9,12 +9,12 @@ export const Index=()=>{
       const location = useLocation();
   const isChatPage = location.pathname.startsWith("/chat/");
     return<>
-      <div className="h-screen flex bg-gray-100">
+      <div className="h-screen flex bg-black">
       {/* Sidebar */}
       <div
         className={`
-          bg-white shadow-md border-r
-          w-full md:w-64
+          bg-black shadow-md border-r border-gray-700
+          w-full md:w-70
           ${isChatPage ? "hidden md:block" : "block"}
         `}
       >
@@ -28,7 +28,7 @@ export const Index=()=>{
           ${isChatPage ? "block" : "hidden md:block"}
         `}
       >
-       {isChatPage ? <Chats username={username}/>:(<p className="flex justify-center h-screen items-center text-5xl text-blue-600 font-bold">wassap</p>)}
+       {isChatPage ? <Chats username={username}/>:(<p className="flex justify-center h-screen items-center text-3xl text-gray-200 font-bold">Welcome to Chat</p>)}
       </div>
     </div>
     </>
