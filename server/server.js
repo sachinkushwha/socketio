@@ -26,7 +26,7 @@ io.on('connection', (socket) => {
     console.log('new connection connected');
 
     socket.on('disconnect', (reson) => {
-        console.log(`user ${socket.id} disconnect`);
+        console.log(`user ${socket.id} disconnect`,reson);
     })
     socket.on('register', (userId) => {
         console.log("userid", userId);
