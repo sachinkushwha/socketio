@@ -13,8 +13,8 @@ function App() {
       const fchat = JSON.parse(localStorage.getItem('chatchat'));
       const update = [...fchat, msg];
       localStorage.setItem('chatchat', JSON.stringify(update));
-      setnoti(msg.sender)
-      console.log('sender',msg.sender);
+      setnoti(msg)
+      console.log('sender',msg);
     }
     socket.on('getmessage', handler);
     return () => {

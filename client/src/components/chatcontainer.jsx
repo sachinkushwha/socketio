@@ -68,12 +68,7 @@ export const Chats = ({ username }) => {
     
       {/* Top bar */}
       <div className="flex items-center justify-between bg-blue-600 text-white px-4 py-3 shadow">
-        {/* <Link
-          to="/"
-          className="text-sm font-semibold hover:underline hover:text-gray-200"
-        >
-          ⬅ Back
-        </Link> */}
+       
         
         <h1 className="text-lg font-bold">{username}</h1>
         <p className="cursor-pointer font-bold text-red-500" onClick={handleclearchat}>Clear Chat</p>
@@ -83,6 +78,7 @@ export const Chats = ({ username }) => {
       {/* Messages area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-2">
         {chatss.map((c, i) => (
+          
           <div
             key={i}
             className={`p-2 rounded-lg max-w-xs ${c.sender === localStorage.getItem("chatuserid")
@@ -91,7 +87,7 @@ export const Chats = ({ username }) => {
               }`}
           >
             {c.text}
-          </div>
+            </div>
         ))}
       </div>
 

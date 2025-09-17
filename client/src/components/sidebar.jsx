@@ -17,14 +17,15 @@ function Mainlogic({ setusername }) {
   }, []);
 
 useEffect(()=>{
-  if(noti){
+  if(noti.sender){
     setnewusers((prev)=>({
-      ...prev,[noti]:true
+      ...prev,[noti.sender]:true
   }))
   }
-  console.log('newuse',newusers);
-},[noti])
+  
+},[noti.sender],{newusers})
 
+console.log('newuse',newusers);
 
   const handlelogout = () => {
     localStorage.removeItem('chattoken');
@@ -32,7 +33,7 @@ useEffect(()=>{
 
   }
 
-  const usr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 12];
+  // const usr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 12];
   const users = user.filter(u => u.email != localStorage.getItem('chatemail'));
   return (
     <>
@@ -62,9 +63,13 @@ useEffect(()=>{
               </div>
               {newusers[u._id]? (
                 <div className="flex flex-col ">
-                  <h3 className="text-xl">{u.name+"new"}</h3>
-                  <p className="text-sm text-gray-400 truncate w-34">hey! there i'm using wassap  </p>
+                  <div className="flex flex-row items-center justify-between">
+                  <h3 className="text-xl">{u.name}</h3>
+                 <div className="w-3 h-3 rounded-full bg-blue-600"></div>
+                  </div>
+                  <div><p className="text-sm text-gray-400 truncate w-34"> {noti.text}</p></div>
                 </div>
+                
                 ):(
                   <div className="flex flex-col ">
                   <h3 className="text-xl">{u.name}</h3>
