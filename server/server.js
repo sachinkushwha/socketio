@@ -5,7 +5,7 @@ const cors = require('cors');
 const publicRouter = require('./router/publicrouter');
 const app = express();
 const mongoose = require('mongoose');
-const protectedRouter=require('./router/protectedRouter');
+const protectedRouter = require('./router/protectedRouter');
 require('dotenv').config();
 
 const server = http.createServer(app);
@@ -25,6 +25,9 @@ const users = {};
 io.on('connection', (socket) => {
     console.log('new connection connected');
 
+    socket.on('disconnect', (reson) => {
+        console.log(`user ${socket.id} disconnect`);
+    })
     socket.on('register', (userId) => {
         console.log("userid", userId);
         users[userId] = socket.id;
@@ -32,12 +35,12 @@ io.on('connection', (socket) => {
     });
 
     socket.on('sendmessage', ({ reciverid, senderid, text }) => {
-        console.log("reciver",reciverid);
+        console.log("reciver", reciverid);
         const reciversocket = users[reciverid];
         console.log(reciversocket);
         if (reciversocket) {
-            console.log("sender",senderid);
-            io.to(reciversocket).emit('getmessage', { sender: senderid, text: text,reciver: reciverid });
+            console.log("sender", senderid);
+            io.to(reciversocket).emit('getmessage', { sender: senderid, text: text, reciver: reciverid });
             console.log(text);
         }
     })
