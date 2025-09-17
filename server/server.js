@@ -27,6 +27,12 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', (reson) => {
         console.log(`user ${socket.id} disconnect`,reson);
+        for(let userid in users){
+            if(users[userid]===socket.id){
+                delete users[userid];
+                break;
+            }
+        }
     })
     socket.on('register', (userId) => {
         console.log("userid", userId);

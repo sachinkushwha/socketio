@@ -2,8 +2,9 @@ import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import socket from "./socket";
-import { noticontex } from "../contexprovider/noticontex";
+import { noticontex} from "../contexprovider/noticontex";
 export const Chats = ({ username }) => {
+  const {noti,setnoti}= useContext(noticontex);
   const { id } = useParams();
   const [msg, setmsg] = useState('');
   const [chats, setChat] = useState([]);
@@ -63,6 +64,17 @@ export const Chats = ({ username }) => {
   );
 
   console.log(chats);
+
+  useEffect(()=>{
+ if(noti.sender!==id){
+    const msg={
+      sender:''
+    }
+    setnoti(msg);
+  }
+  },[id]);
+
+ 
   return <>
     <div className="flex flex-col h-screen bg-gray-100">
     

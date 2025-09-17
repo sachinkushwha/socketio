@@ -6,7 +6,7 @@ import { noticontex } from "../contexprovider/noticontex";
 import { Header } from "./header";
 function Mainlogic({ setusername }) {
   const { noti, setnoti } = useContext(noticontex);
-  const [newusers,setnewusers]=useState({});
+  const [newusers, setnewusers] = useState({});
   const navigate = useNavigate();
   const [user, setusers] = useState([]);
   useEffect(() => {
@@ -16,16 +16,16 @@ function Mainlogic({ setusername }) {
     })
   }, []);
 
-useEffect(()=>{
-  if(noti.sender){
-    setnewusers((prev)=>({
-      ...prev,[noti.sender]:true
-  }))
-  }
-  
-},[noti.sender],{newusers})
+  useEffect(() => {
+    if (noti.sender) {
+      setnewusers((prev) => ({
+        ...prev, [noti.sender]: true
+      }))
+    }
+  }, [noti.sender]);
 
-console.log('newuse',newusers);
+ 
+  console.log('newuse', newusers);
 
   const handlelogout = () => {
     localStorage.removeItem('chattoken');
@@ -50,8 +50,9 @@ console.log('newuse',newusers);
             <Link
               key={ind}
               onClick={() => {
-                setnewusers((prev)=>({
-                  ...prev,[u._id]:false
+
+                setnewusers((prev) => ({
+                  ...prev, [u._id]: false
                 }))
                 setusername(u.name)
               }}
@@ -61,24 +62,24 @@ console.log('newuse',newusers);
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white font-bold">
                 {u.name.charAt(0).toUpperCase()}
               </div>
-              {newusers[u._id]? (
+              {newusers[u._id] ? (
                 <div className="flex flex-col ">
                   <div className="flex flex-row items-center justify-between">
-                  <h3 className="text-xl">{u.name}</h3>
-                 <div className="w-3 h-3 rounded-full bg-blue-600"></div>
+                    <h3 className="text-xl">{u.name}</h3>
+                    <div className="w-3 h-3 rounded-full bg-blue-600"></div>
                   </div>
                   <div><p className="text-sm text-gray-400 truncate w-34"> {noti.text}</p></div>
                 </div>
-                
-                ):(
-                  <div className="flex flex-col ">
+
+              ) : (
+                <div className="flex flex-col ">
                   <h3 className="text-xl">{u.name}</h3>
                   <p className="text-sm text-gray-400 truncate w-34">hey! there i'm using wassap  </p>
                 </div>
-                )}
+              )}
 
 
-                  
+
             </Link>
           ))}
         </div>
