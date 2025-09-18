@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import socket from "./socket";
 import { noticontex} from "../contexprovider/noticontex";
 export const Chats = ({ username }) => {
+  const navigate=useNavigate();
   const {noti,setnoti}= useContext(noticontex);
   const { id } = useParams();
   const [msg, setmsg] = useState('');
@@ -13,7 +14,7 @@ export const Chats = ({ username }) => {
     const msg=JSON.parse(localStorage.getItem('chatchat'));
     const clrchat=msg.filter(c=>c.reciver!==String(id) && c.sender!==String(id));
     localStorage.setItem('chatchat',JSON.stringify(clrchat));
-    console.log('jach',clrchat);
+    // console.log('jach',clrchat);
     setChat(clrchat);
     }
 
@@ -37,7 +38,7 @@ export const Chats = ({ username }) => {
     setChat(prev => [...prev, newmsg]);
     setmsg('');
 
-    console.log(msg);
+    // console.log(msg);
   }
 
   useEffect(() => {
@@ -63,7 +64,7 @@ export const Chats = ({ username }) => {
       (m.sender === id && m.reciver === myId)
   );
 
-  console.log(chats);
+  // console.log(chats);
 
   useEffect(()=>{
  if(noti.sender!==id){
@@ -74,16 +75,22 @@ export const Chats = ({ username }) => {
   }
   },[id]);
 
- 
+ const handlebackbutton=()=>{
+  const msg={
+      sender:''
+    }
+    setnoti(msg);
+  navigate('/');
+ }
   return <>
     <div className="flex flex-col h-screen bg-gray-100">
     
       {/* Top bar */}
       <div className="flex items-center justify-between bg-blue-600 text-white px-4 py-3 shadow">
        
-        
-        <h1 className="text-lg font-bold">{username}</h1>
-        <p className="cursor-pointer font-bold text-red-500" onClick={handleclearchat}>Clear Chat</p>
+        <p className="block md:hidden cursor-pointer text-xl" onClick={handlebackbutton}>↩</p>
+        <h1 className="text-lg font-bold">「 ✦ {username} ✦ 」</h1>
+        <p className="cursor-pointer font-bold text-red-500" onClick={handleclearchat}>Clear</p>
         <div />
       </div>
 

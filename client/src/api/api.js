@@ -27,6 +27,6 @@ return result;
 export const User=async()=>{
     const response = await fetch('https://socketio-q50f.onrender.com/user');
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
     return result;
 }

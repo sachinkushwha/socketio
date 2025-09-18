@@ -38,6 +38,7 @@ io.on('connection', (socket) => {
         console.log("userid", userId);
         users[userId] = socket.id;
         console.log("->", users);
+        
     });
 
     socket.on('sendmessage', ({ reciverid, senderid, text }) => {

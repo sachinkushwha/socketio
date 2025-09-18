@@ -11,7 +11,7 @@ function Mainlogic({ setusername }) {
   const [user, setusers] = useState([]);
   useEffect(() => {
     User().then((result) => {
-      console.log("user", result);
+      // console.log("user", result);
       setusers(result);
     })
   }, []);
@@ -25,7 +25,7 @@ function Mainlogic({ setusername }) {
   }, [noti.sender]);
 
  
-  console.log('newuse', newusers);
+  // console.log('newuse', newusers);
 
   const handlelogout = () => {
     localStorage.removeItem('chattoken');
@@ -33,8 +33,9 @@ function Mainlogic({ setusername }) {
 
   }
 
-  // const usr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 12];
+  // 
   const users = user.filter(u => u.email != localStorage.getItem('chatemail'));
+  // const users = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 12];
   return (
     <>
       <Header />

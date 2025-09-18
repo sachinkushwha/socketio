@@ -14,7 +14,7 @@ function App() {
       const update = [...fchat, msg];
       localStorage.setItem('chatchat', JSON.stringify(update));
       setnoti(msg)
-      console.log('sender',msg);
+      // console.log('sender',msg);
     }
     socket.on('getmessage', handler);
     return () => {
