@@ -45,6 +45,10 @@ io.on('connection', (socket) => {
         
     });
 
+    socket.on('checkonline',()=>{
+        io.emit('online', Object.keys(users));
+    })
+
     socket.on('sendmessage', ({ reciverid, senderid, text }) => {
         console.log("reciver", reciverid);
         const reciversocket = users[reciverid];
