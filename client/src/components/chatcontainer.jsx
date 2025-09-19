@@ -9,6 +9,7 @@ export const Chats = ({ username }) => {
   const { id } = useParams();
   const [msg, setmsg] = useState('');
   const [chats, setChat] = useState([]);
+  const [isonline, setisonline] = useState([]);
 
   const handleclearchat=()=>{
     const msg=JSON.parse(localStorage.getItem('chatchat'));
@@ -83,9 +84,14 @@ export const Chats = ({ username }) => {
   navigate('/');
  }
 
- socket.on('online',(userid)=>{
-  console.log('user online',userid);
+ const onlineuser=[];
+
+useEffect(()=>{
+   socket.on('online',(userid)=>{
+  setisonline((prev)=>[...prev,userid]);
+  console.log('user online',isonline);
  })
+},[id]);
   return <>
     <div className="flex flex-col h-screen bg-gray-100">
     
@@ -94,7 +100,8 @@ export const Chats = ({ username }) => {
        
         <p className="block md:hidden cursor-pointer text-xl" onClick={handlebackbutton}>↩</p>
         <h1 className="text-lg font-bold">「 ✦ {username} ✦ 」</h1>
-        <span className="text-sm text-gray-200">online</span>
+        {isonline.includes(id)?(<span className="text-sm text-gray-200">online</span>):(<span className="text-sm text-gray-200">offline</span>)}
+        
         <p className="cursor-pointer font-bold text-red-500" onClick={handleclearchat}>Clear</p>
         <div />
       </div>
