@@ -4,15 +4,18 @@ import { User } from "../api/api";
 import { useState } from "react";
 import { noticontex } from "../contexprovider/noticontex";
 import { Header } from "./header";
+import {Loader} from "./loader";
 function Mainlogic({ setusername }) {
   const { noti, setnoti } = useContext(noticontex);
   const [newusers, setnewusers] = useState({});
   const navigate = useNavigate();
   const [user, setusers] = useState([]);
+  const [load, setload] = useState(true);
   useEffect(() => {
     User().then((result) => {
       // console.log("user", result);
       setusers(result);
+      setload(false);
     })
   }, []);
 
@@ -42,10 +45,12 @@ function Mainlogic({ setusername }) {
 
 
       {/* <p onClick={handlelogout} className="cursor-pointer text-xl items-center text-blue-600 flex justify-center font-bold mt-2 bg-black">Logout</p> */}
+
       <div className="flex flex-col items-center justify-center h-[calc(100vh-126px)] bg-black ">
         {/* Heading */}
 
         {/* Users List */}
+        {load && <Loader/> }
         <div className="bg-black  rounded-2xl p-0 w-65 space-y-4  overflow-y-auto hide-scrollbar">
           {users.map((u, ind) => (
             <Link

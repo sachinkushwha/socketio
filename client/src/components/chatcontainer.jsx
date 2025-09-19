@@ -82,6 +82,10 @@ export const Chats = ({ username }) => {
     setnoti(msg);
   navigate('/');
  }
+
+ socket.on('online',(userid)=>{
+  console.log('user online',userid);
+ })
   return <>
     <div className="flex flex-col h-screen bg-gray-100">
     
@@ -90,6 +94,7 @@ export const Chats = ({ username }) => {
        
         <p className="block md:hidden cursor-pointer text-xl" onClick={handlebackbutton}>↩</p>
         <h1 className="text-lg font-bold">「 ✦ {username} ✦ 」</h1>
+        <span className="text-sm text-gray-200">online</span>
         <p className="cursor-pointer font-bold text-red-500" onClick={handleclearchat}>Clear</p>
         <div />
       </div>

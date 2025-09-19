@@ -25,11 +25,14 @@ const users = {};
 io.on('connection', (socket) => {
     console.log('new connection connected');
 
+
     socket.on('disconnect', (reson) => {
         console.log(`user ${socket.id} disconnect`,reson);
+        
         for(let userid in users){
             if(users[userid]===socket.id){
                 delete users[userid];
+                io.emit('offline', userid);
                 break;
             }
         }
@@ -38,6 +41,7 @@ io.on('connection', (socket) => {
         console.log("userid", userId);
         users[userId] = socket.id;
         console.log("->", users);
+        io.emit('online', userId);
         
     });
 
