@@ -2,14 +2,18 @@ import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import socket from "./socket";
-import { noticontex } from "../contexprovider/noticontex";
+import { Noticontex } from "../contexprovider/noticontex";
+import { statuscontext } from "../contexprovider/noticontex";
 export const Chats = ({ username }) => {
+
+
   const navigate = useNavigate();
-  const { noti, setnoti } = useContext(noticontex);
+  const { noti, setnoti } = useContext(Noticontex);
+  const { isonline } = useContext(statuscontext);
   const { id } = useParams();
   const [msg, setmsg] = useState('');
   const [chats, setChat] = useState([]);
-  const [isonline, setisonline] = useState([]);
+  // const [isonline, setisonline] = useState([]);
 
   const handleclearchat = () => {
     const msg = JSON.parse(localStorage.getItem('chatchat'));
@@ -43,7 +47,6 @@ export const Chats = ({ username }) => {
   }
 
   useEffect(() => {
-    console.log('getmsgcheck')
     const handler = (msg) => {
       setChat(prev => {
         const update = [...prev, msg];
@@ -84,21 +87,12 @@ export const Chats = ({ username }) => {
     navigate('/');
   }
 
-useEffect(()=>{
-  socket.emit('checkonline')
-},[]);
+  // useEffect(()=>{
+  //   socket.emit('checkonline')
+  // },[]);
 
-  useEffect(() => {
-    socket.on('online', (userid) => {
-      setisonline(userid);
-      console.log('user online', userid);
-    })
 
-    return () => {
-      socket.off("online");
-    };
-  }, []);
-
+  console.log('outside', isonline);
   return <>
     <div className="flex flex-col h-screen bg-gray-100">
 

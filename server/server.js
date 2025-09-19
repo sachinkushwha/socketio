@@ -25,14 +25,13 @@ const users = {};
 io.on('connection', (socket) => {
     console.log('new connection connected');
 
-
     socket.on('disconnect', (reson) => {
         console.log(`user ${socket.id} disconnect`,reson);
         
         for(let userid in users){
             if(users[userid]===socket.id){
                 delete users[userid];
-                io.emit('offline', userid);
+                io.emit('online', Object.keys(users));
                 break;
             }
         }
@@ -45,9 +44,7 @@ io.on('connection', (socket) => {
         
     });
 
-    socket.on('checkonline',()=>{
-        io.emit('online', Object.keys(users));
-    })
+    
 
     socket.on('sendmessage', ({ reciverid, senderid, text }) => {
         console.log("reciver", reciverid);
@@ -59,7 +56,6 @@ io.on('connection', (socket) => {
             console.log(text);
         }
     })
-
 
 })
 

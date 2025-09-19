@@ -2,11 +2,11 @@ import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User } from "../api/api";
 import { useState } from "react";
-import { noticontex } from "../contexprovider/noticontex";
+import { Noticontex } from "../contexprovider/noticontex";
 import { Header } from "./header";
 import {Loader} from "./loader";
 function Mainlogic({ setusername }) {
-  const { noti, setnoti } = useContext(noticontex);
+  const { noti, setnoti } = useContext(Noticontex);
   const [newusers, setnewusers] = useState({});
   const navigate = useNavigate();
   const [user, setusers] = useState([]);

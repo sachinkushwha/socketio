@@ -1,7 +1,8 @@
 import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import socket from "./components/socket";
-import { noticontex } from "./contexprovider/noticontex";
+import { Noticontex } from "./contexprovider/noticontex";
+import { Statusprovider } from "./contexprovider/noticontex";
 function App() {
   const [noti, setnoti] = useState('')
   useEffect(() => {
@@ -23,10 +24,11 @@ function App() {
   }, []);
 
   return (
-    <noticontex.Provider value={{noti,setnoti}}>
-      <Outlet />
-    </noticontex.Provider>
-
+    <Statusprovider>
+      <Noticontex.Provider value={{ noti, setnoti }}>
+        <Outlet />
+      </Noticontex.Provider>
+    </Statusprovider>
   );
 }
 
