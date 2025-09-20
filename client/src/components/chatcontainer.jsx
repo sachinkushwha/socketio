@@ -4,8 +4,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import socket from "./socket";
 import { Noticontex } from "../contexprovider/noticontex";
 import { statuscontext } from "../contexprovider/noticontex";
-export const Chats = ({ username }) => {
 
+
+export const Chats = ({ username }) => {
 
   const navigate = useNavigate();
   const { noti, setnoti } = useContext(Noticontex);
@@ -87,9 +88,18 @@ export const Chats = ({ username }) => {
     navigate('/');
   }
 
-  // useEffect(()=>{
-  //   socket.emit('checkonline')
-  // },[]);
+  useEffect(() => {
+  const handler = () => {
+    alert("⚠️ You are disconnected");
+  };
+
+  socket.on("disconnect", handler);
+
+  return () => {
+    socket.off("disconnect", handler);
+  };
+}, []);
+
 
 
   console.log('outside', isonline);
