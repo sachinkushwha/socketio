@@ -91,7 +91,7 @@ export const Chats = ({ username }) => {
   useEffect(() => {
   const handler = () => {
     alert("⚠️ You are disconnected");
-  };
+   };
 
   socket.on("disconnect", handler);
 

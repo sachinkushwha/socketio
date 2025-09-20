@@ -20,6 +20,21 @@ export const Statusprovider=({children})=>{
     };
   }, []);
 
+  useEffect(() => {
+  socket.on("connect", () => {
+    const myId = localStorage.getItem("chatuserid");
+    console.log('baba re baaba',myId);
+    if (myId) {
+      socket.emit("register", myId); // reconnect hone ke baad bhi register ho jao
+    }
+  });
+
+  return () => {
+    socket.off("connect");
+  };
+}, []);
+
+
     return(
         <statuscontext.Provider value={{isonline,setisonline}} >
             {children}

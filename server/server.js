@@ -41,7 +41,6 @@ io.on('connection', (socket) => {
         users[userId] = socket.id;
         console.log("->", users);
         io.emit('online', Object.keys(users));
-        
     });
 
     
