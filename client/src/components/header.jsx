@@ -1,8 +1,10 @@
 import { Settings, MessageCircle, Search } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AddContact } from "./addContect";
 
 export const Header = () => {
+    const [iscontact, setiscontact] = useState(false);
     const [open, setopen] = useState(false);
     const navigate = useNavigate();
     const handleLogout = () => {
@@ -42,9 +44,24 @@ export const Header = () => {
                                         border-transparent border-b-[#1e1e1e]">
                                     </div>
 
-                                    <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 rounded-lg">
+                                    <button
+                                        onClick={handleLogout}
+                                        className="w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-gray-600 rounded-md transition-colors duration-200"
+                                    >
                                         Log out
                                     </button>
+
+                                    <button
+                                        onClick={() =>{ 
+                                            setopen(false);
+                                            setiscontact(true);
+                                        }}
+                                        className="w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-gray-600 rounded-md transition-colors duration-200"
+                                    >
+                                        add contact
+                                    </button>
+
+
                                 </div>
                             )}
                         </div>
@@ -62,6 +79,15 @@ export const Header = () => {
                 </div> */}
                 <div className="border-b border-border mt-2 text-gray-600"></div>
             </div>
+            {iscontact && (
+                <div className="fixed inset-0 flex items-center justify-center bg-[#121212] ">
+                    <AddContact setiscontact={setiscontact}/>
+                </div>
+
+            )}
+
+
+
         </>
     );
 };

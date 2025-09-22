@@ -25,7 +25,12 @@ return result;
 }
 
 export const User=async()=>{
-    const response = await fetch('https://socketio-q50f.onrender.com/user');
+    const response = await fetch('https://socketio-q50f.onrender.com/user',{
+         headers:{'authorization':localStorage.getItem('chattoken')}
+    });
+    // const response = await fetch('http://localhost:3000/user',{
+    //     headers:{'authorization':localStorage.getItem('chattoken')}
+    // });
     const result = await response.json();
     // console.log(result);
     return result;
