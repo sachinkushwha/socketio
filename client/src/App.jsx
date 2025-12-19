@@ -7,15 +7,14 @@ function App() {
   const [noti, setnoti] = useState('')
   useEffect(() => {
     socket.emit('register', localStorage.getItem('chatuserid'));
-  }, [])
+  }, []);
 
   useEffect(() => {
     const handler = (msg) => {
       const fchat = JSON.parse(localStorage.getItem('chatchat'));
       const update = [...fchat, msg];
       localStorage.setItem('chatchat', JSON.stringify(update));
-      setnoti(msg)
-      // console.log('sender',msg);
+      setnoti(msg);
     }
     socket.on('getmessage', handler);
     return () => {
@@ -31,5 +30,4 @@ function App() {
     </Statusprovider>
   );
 }
-
 export default App;

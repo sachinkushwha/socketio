@@ -10,7 +10,6 @@ export const AddContact = ({setiscontact}) => {
         const data={
             email:email
         }
-        // const response=await fetch('http://localhost:3000/contact',{
         const response=await fetch('https://socketio-q50f.onrender.com/contact',{
             method:'POST',
             headers:{
