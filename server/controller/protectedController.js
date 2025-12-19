@@ -18,8 +18,9 @@ exports.Contact=async(req,res)=>{
         return res.status(404).json('user not found');
     }
     const contact_user_id=usercontact._id;
-    const alreadycontact=await Contactmodel.findOne({contact_user_id});
-    if(alreadycontact.user_id===user_id){
+    const alreadycontact=await Contactmodel.find({contact_user_id});
+    const alreadyinContact=alreadycontact.filter(ardy=>ardy.user_id!==user_id);
+    if(alreadyinContact){
         return res.status(409).json('already added');
     }
     const contactlist=new Contactmodel({contact_user_id,user_id});
