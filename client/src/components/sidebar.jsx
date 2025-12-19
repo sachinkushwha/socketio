@@ -12,11 +12,12 @@ function Mainlogic({ setusername }) {
   const [user, setusers] = useState([]);
   const [load, setload] = useState(true);
   useEffect(() => {
+    console.log("noti chala")
     User().then((result) => {
       setusers(result);
       setload(false);
     })
-  }, []);
+  }, [noti]);
 
   useEffect(() => {
     if (noti.sender) {
@@ -28,13 +29,7 @@ function Mainlogic({ setusername }) {
 
  
 
-  const handlelogout = () => {
-    localStorage.removeItem('chattoken');
-    navigate('/login');
-
-  }
-
-  // 
+ 
   const users = user.filter(u => u.email != localStorage.getItem('chatemail'));
   return (
     <>
