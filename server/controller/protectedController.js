@@ -19,7 +19,7 @@ exports.Contact=async(req,res)=>{
     }
     const contact_user_id=usercontact._id;
     const alreadycontact=await Contactmodel.findOne({contact_user_id});
-    if(alreadycontact===user_id){
+    if(alreadycontact.user_id===user_id){
         return res.status(409).json('already added');
     }
     const contactlist=new Contactmodel({contact_user_id,user_id});
