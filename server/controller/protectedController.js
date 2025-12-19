@@ -25,8 +25,7 @@ exports.Contact=async(req,res)=>{
     }
     const contactlistfist=new Contactmodel({contact_user_id,user_id});
     await contactlistfist.save();
-    const contactlistsecond=new Contactmodel({user_id,contact_user_id});
-    
+    const contactlistsecond=new Contactmodel({contact_user_id:user_id,user_id:contact_user_id});
     await contactlistsecond.save();
 
     res.status(200).json('contact added');
