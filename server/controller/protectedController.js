@@ -23,8 +23,10 @@ exports.Contact=async(req,res)=>{
     if(alreadyinContact.lenght()!==0){
         return res.status(409).json('already added');
     }
-    const contactlist=new Contactmodel({contact_user_id,user_id});
-    await contactlist.save();
+    const contactlistfist=new Contactmodel({contact_user_id,user_id});
+    const contactlistsecond=new Contactmodel({user_id,contact_user_id});
+    await contactlistfist.save();
+    await contactlistsecond.save();
 
     res.status(200).json('contact added');
 }
