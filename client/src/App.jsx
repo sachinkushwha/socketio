@@ -14,6 +14,7 @@ function App() {
       console.log("dekhte hai",msg);
       const fchat = JSON.parse(localStorage.getItem('chatchat'));
       const update = [...fchat, msg];
+      console.log("check update",update);
       localStorage.setItem('chatchat', JSON.stringify(update));
       setnoti(msg);
     }
