@@ -49,6 +49,7 @@ io.on('connection', (socket) => {
         console.log("reciver", reciverid);
         const reciversocket = users[reciverid];
         console.log(reciversocket);
+        console.log({sender: senderid, text: text, reciver: reciverid });
         if (reciversocket) {
             io.to(reciversocket).emit('getmessage', { sender: senderid, text: text, reciver: reciverid });
             console.log({sender: senderid, text: text, reciver: reciverid });
