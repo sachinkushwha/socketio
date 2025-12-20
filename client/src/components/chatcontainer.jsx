@@ -38,6 +38,7 @@ export const Chats = ({ username }) => {
       setChat([]);
     }
   }, [localStorage.getItem('chatchat')]);
+  
   const handlesend = () => {
     localStorage.setItem('chatchat', JSON.stringify([...chats, newmsg]));
     socket.emit('sendmessage', { 'reciverid': id, 'senderid': localStorage.getItem('chatuserid'), 'text': newmsg.text });

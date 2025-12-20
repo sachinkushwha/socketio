@@ -11,6 +11,7 @@ function App() {
 
   useEffect(() => {
     const handler = (msg) => {
+      console.log("dekhte hai",msg);
       const fchat = JSON.parse(localStorage.getItem('chatchat'));
       const update = [...fchat, msg];
       localStorage.setItem('chatchat', JSON.stringify(update));
