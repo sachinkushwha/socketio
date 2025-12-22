@@ -35,10 +35,8 @@ export const Chats = ({ username }) => {
     console.log(fchat,"fchat mai kya mila");
     if (fchat) {
       setChat(fchat);
-    } else {
-      setChat([]);
     }
-  }, [localStorage.getItem('chatchat')]);
+  }, []);
   
   const handlesend = () => {
     localStorage.setItem('chatchat', JSON.stringify([...chats, newmsg]));
