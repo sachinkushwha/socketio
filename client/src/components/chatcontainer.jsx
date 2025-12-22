@@ -32,6 +32,7 @@ export const Chats = ({ username }) => {
   }
   useEffect(() => {
     const fchat = JSON.parse(localStorage.getItem('chatchatk'));
+    console.log(fchat,"fchat mai kya mila");
     if (fchat) {
       setChat(fchat);
     } else {
@@ -45,7 +46,6 @@ export const Chats = ({ username }) => {
     setChat(prev => [...prev, newmsg]);
     setmsg('');
 
-    // console.log(msg);
   }
 
   useEffect(() => {
@@ -70,7 +70,6 @@ export const Chats = ({ username }) => {
       (m.sender === id && m.reciver === myId)
   );
 
-  // console.log(chats);
 
   useEffect(() => {
     if (noti.sender !== id) {
