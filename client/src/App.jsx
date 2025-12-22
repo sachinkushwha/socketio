@@ -6,6 +6,7 @@ import { Statusprovider } from "./contexprovider/noticontex";
 function App() {
   const [noti, setnoti] = useState('')
   useEffect(() => {
+    console.log("register huaa kitni baar chhala");
     socket.emit('register', localStorage.getItem('chatuserid'));
   }, []);
 
