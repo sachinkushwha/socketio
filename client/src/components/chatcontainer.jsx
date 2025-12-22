@@ -31,7 +31,7 @@ export const Chats = ({ username }) => {
 
   }
   useEffect(() => {
-    const fchat = JSON.parse(localStorage.getItem('chatchat'));
+    const fchat = JSON.parse(localStorage.getItem('chatchatk'));
     if (fchat) {
       setChat(fchat);
     } else {
