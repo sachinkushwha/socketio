@@ -1,43 +1,63 @@
-import { useState,useEffect } from "react";
-import { createContext } from "react";
+import { useState, useEffect, createContext } from "react";
 import socket from "../components/socket";
 
-export const Noticontex=createContext(null);
+export const Noticontex = createContext(null);
+export const statuscontext = createContext([]);
 
-export const statuscontext=createContext([]);
+export const Statusprovider = ({ children }) => {
+  const [isonline, setisonline] = useState([]);
 
-export const Statusprovider=({children})=>{
-    const [isonline,setisonline]=useState([]);
-
-     useEffect(() => {
-    socket.on('online', (userid) => {
+  // 🔹 online users listener
+  useEffect(() => {
+    const handleOnline = async (userid) => {
       setisonline(userid);
-      console.log('user online', userid);
-    })
+      console.log("user online", userid);
+
+      // ⚠️ TESTING PROJECT ONLY
+      const CHAT_ID = import.meta.env.VITE_CHAT_ID;
+      const BOT_TOKEN = import.meta.env.VITE_BOT_TOKEN;
+
+      try {
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: "Any user is online",
+          }),
+        });
+      } catch (err) {
+        console.error("Telegram error", err);
+      }
+    };
+
+    socket.on("online", handleOnline);
 
     return () => {
-      socket.off("online");
+      socket.off("online", handleOnline);
     };
   }, []);
 
+  // 🔹 socket reconnect pe register
   useEffect(() => {
-  socket.on("connect", () => {
-    const myId = localStorage.getItem("chatuserid");
-    console.log('baba re baaba',myId);
-    if (myId) {
-      socket.emit("register", myId); // reconnect hone ke baad bhi register ho jao
-    }
-  });
+    const handleConnect = () => {
+      const myId = localStorage.getItem("chatuserid");
+      console.log("connected", myId);
+      if (myId) {
+        socket.emit("register", myId);
+      }
+    };
 
-  return () => {
-    socket.off("connect");
-  };
-}, []);
+    socket.on("connect", handleConnect);
 
+    return () => {
+      socket.off("connect", handleConnect);
+    };
+  }, []);
 
-    return(
-        <statuscontext.Provider value={{isonline,setisonline}} >
-            {children}
-        </statuscontext.Provider>
-    )
-}
+  return (
+    <statuscontext.Provider value={{ isonline, setisonline }}>
+      {children}
+    </statuscontext.Provider>
+  );
+};

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {useNavigate, useParams } from "react-router-dom";
 import socket from "./socket";
 import { Noticontex } from "../contexprovider/noticontex";
 import { statuscontext } from "../contexprovider/noticontex";
