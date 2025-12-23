@@ -22,7 +22,6 @@ app.use('/', (req, res) => {
     res.json('server is live')
 })
 const users = {};
-const usernamearr=[]
 const isonline=(st)=>{
     console.log(`some user is online in server ${st}`);
 }
