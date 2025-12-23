@@ -6,12 +6,11 @@ export const statuscontext = createContext([]);
 
 export const Statusprovider = ({ children }) => {
   const [isonline, setisonline] = useState([]);
-  const [onlineuser, setonlineuser] = useState([]);
 
   // 🔹 online users listener
   useEffect(() => {
     const handleOnline = async (userid) => {
-      setisonline(userid); 
+      setisonline(Object.keys(userid)); 
       const usernames = Object.values(userid).map(u => u.username);
       console.log(usernames);
 
@@ -26,7 +25,7 @@ export const Statusprovider = ({ children }) => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             chat_id: CHAT_ID,
-            text: `${onlineuser} user is online`,
+            text: `${usernames} user is online`,
           }),
         });
         console.log("user online", userid);
