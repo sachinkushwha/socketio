@@ -12,14 +12,7 @@ export const Statusprovider = ({ children }) => {
   useEffect(() => {
     const handleOnline = async (userid) => {
       setisonline(userid);
-      User().then((result) => {
-        console.log(result,"result");
-        console.log(userid,"userid");
-           const onlineusers=result.filter(u=>userid.includes(u._id)).map(u=>u.name);
-           console.log("onlie wala",onlineusers);
-            setonlineuser(onlineusers);
-            
-          })
+      console.log(localStorage.getItem("chatusername"),userid,"787");
 
       // ⚠️ TESTING PROJECT ONLY
       const CHAT_ID = import.meta.env.VITE_CHAT_ID;
