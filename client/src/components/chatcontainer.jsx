@@ -23,7 +23,7 @@ useEffect(()=>{
     console.log("one users",usernames);
     setusername(usernames);
   })
-},[]);
+},[id]);
 
   const handleclearchat = () => {
     const msg = JSON.parse(localStorage.getItem('chatchat'));
