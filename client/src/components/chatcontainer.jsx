@@ -19,7 +19,7 @@ export const Chats = () => {
 useEffect(()=>{
   User().then((user)=>{
     console.log("all users",user);
-    const usernames=user.filter(u=u._id===id);
+    const usernames=user.filter(u=>u._id===id);
     console.log("one users",usernames);
     setusername(usernames);
   })
