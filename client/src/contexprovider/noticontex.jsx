@@ -14,8 +14,9 @@ export const Statusprovider = ({ children }) => {
       setisonline(userid);
       User().then((result) => {
            const onlineusers=result.filter(u=>userid.includes(u._id)).map(u=>u.name);
+           console.log("onlie wala",onlineusers);
             setonlineuser(onlineusers);
-            console.log("onlie wala",onlineuser);
+            
           })
 
       // ⚠️ TESTING PROJECT ONLY
