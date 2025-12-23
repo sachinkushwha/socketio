@@ -26,7 +26,7 @@ export const AddContact = ({setiscontact}) => {
     }
   return (
     <div className="flex items-center justify-center h-screen bg-[#121212]">
-      <Link to='/'>Back</Link>
+      <Link className="text-white" to='/'>Back</Link>
       <div className="bg-[#1e1e1e] p-6 rounded-lg shadow-lg w-80">
         <form onSubmit={handlesubmit}>
         <label 
