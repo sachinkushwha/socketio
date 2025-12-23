@@ -25,7 +25,7 @@ export const Statusprovider = ({ children }) => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             chat_id: CHAT_ID,
-            text: `[${usernames}] user is online`,
+            text: `[${usernames}]  is online`,
           }),
         });
         console.log("user online", userid);
