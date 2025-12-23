@@ -46,7 +46,6 @@ export const Statusprovider = ({ children }) => {
       console.log("connected", myId);
       if (myId) {
         socket.emit("register", myId);
-        
       }
     };
 

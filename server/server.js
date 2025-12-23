@@ -40,7 +40,6 @@ io.on('connection', (socket) => {
         console.log("userid", userId);
         users[userId] = socket.id;
         console.log("->", users);
-        console.log("user online server", userId);
         io.emit('online', Object.keys(users));
     });
 
