@@ -17,7 +17,7 @@ export const Chats = ({ username }) => {
   // const [isonline, setisonline] = useState([]);
 
 useEffect(()=>{
-  User.then((user)=>{
+  User().then((user)=>{
     console.log("all users",user);
   })
 },[]);
