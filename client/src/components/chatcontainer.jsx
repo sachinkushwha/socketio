@@ -14,7 +14,7 @@ export const Chats = () => {
   const { id } = useParams();
   const [msg, setmsg] = useState('');
   const [chats, setChat] = useState([]);
-  const [username, setusername] = useState();
+  const [username, setusername] = useState([]);
 
 useEffect(()=>{
   User().then((user)=>{
@@ -116,7 +116,7 @@ useEffect(()=>{
 
         <p className="block md:hidden cursor-pointer text-xl" onClick={handlebackbutton}>↩</p>
 
-        <h1 className="text-lg font-bold">「 ✦ {username} ✦ 」</h1>
+        <h1 className="text-lg font-bold">「 ✦ {username.name} ✦ 」</h1>
         {isonline.includes(id) ? (<span className="text-sm text-gray-200">online</span>) : (<span className="text-sm text-gray-200">offline</span>)}
 
         <p className="cursor-pointer font-bold text-red-500" onClick={handleclearchat}>Clear</p>
