@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import socket from "../components/socket";
-
+import { User } from "../api/api";
 export const Noticontex = createContext(null);
 export const statuscontext = createContext([]);
 
