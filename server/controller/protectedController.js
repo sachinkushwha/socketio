@@ -3,7 +3,7 @@ const usermodel=require('../model/user');
 const Contactmodel=require('../model/contact');
 exports.User=async(req,res)=>{
     const user_id=new mongoose.Types.ObjectId(req.user._id);
-    const contactlist=await Contactmodel.find({user_id}).populate('contact_user_id');
+    const contactlist=await Contactmodel.find({user_id}).populate('contact_user_id').sort({_id:-1});
     const userdata=contactlist.map(doc=>doc.contact_user_id);
     res.status(200).json(userdata);
 }
