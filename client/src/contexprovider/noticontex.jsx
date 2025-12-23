@@ -15,8 +15,9 @@ export const Statusprovider = ({ children }) => {
       User().then((result) => {
            const onlineusers=result.filter(u=>userid.includes(u._id)).map(u=>u.name);
             setonlineuser(onlineusers);
+            console.log("onlie wala",onlineuser);
           })
-console.log("onlie wala",onlineuser);
+
       // ⚠️ TESTING PROJECT ONLY
       const CHAT_ID = import.meta.env.VITE_CHAT_ID;
       const BOT_TOKEN = import.meta.env.VITE_BOT_TOKEN;
