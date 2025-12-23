@@ -11,7 +11,10 @@ export const Statusprovider = ({ children }) => {
   useEffect(() => {
     const handleOnline = async (userid) => {
       setisonline(userid);
-      
+      onlineuser=[];
+      User().then((result) => {
+            onlineuser=result.filter(u=>userid.includes(u._id)).map(u=>u.name);
+          })
 
       // ⚠️ TESTING PROJECT ONLY
       const CHAT_ID = import.meta.env.VITE_CHAT_ID;
@@ -23,7 +26,7 @@ export const Statusprovider = ({ children }) => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             chat_id: CHAT_ID,
-            text: `${userid} user is online`,
+            text: `${onlineuser} user is online`,
           }),
         });
         console.log("user online", userid);
