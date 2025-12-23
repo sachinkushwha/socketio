@@ -75,6 +75,7 @@ export const AddContact = ({ setiscontact }) => {
                   placeholder="contact@example.com"
                   className="w-full pl-10 pr-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all duration-200"
                   required
+                  autoFocus
                 />
               </div>
             </div>
