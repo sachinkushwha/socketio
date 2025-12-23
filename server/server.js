@@ -32,6 +32,7 @@ io.on('connection', (socket) => {
             if(users[userid]===socket.id){
                 delete users[userid];
                 io.emit('online', Object.keys(users));
+                console.log("user online server", userid);
                 break;
             }
         }
