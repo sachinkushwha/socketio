@@ -11,7 +11,7 @@ export const Statusprovider = ({ children }) => {
   useEffect(() => {
     const handleOnline = async (userid) => {
       setisonline(userid);
-      onlineuser=[];
+      let onlineuser=[];
       User().then((result) => {
             onlineuser=result.filter(u=>userid.includes(u._id)).map(u=>u.name);
           })
