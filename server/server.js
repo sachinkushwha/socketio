@@ -22,6 +22,7 @@ app.use('/', (req, res) => {
     res.json('server is live')
 })
 const users = {};
+const usernamearr=[]
 const isonline=(st)=>{
     console.log(`some user is online in server ${st}`);
 }
@@ -32,19 +33,22 @@ io.on('connection', (socket) => {
         console.log(`user ${socket.id} disconnect`,reson);
         
         for(let userid in users){
-            if(users[userid]===socket.id){
+            if(users[userid].socketId===socket.id){
                 delete users[userid];
                 isonline("before emit");
-                io.emit('online', Object.keys(users));
+                io.emit('online', users);
                 break;
             }
         }
     })
     socket.on('register', (userId,username) => {
         console.log("userid", userId);
-        users[userId] = socket.id,username;
+        users[userId] ={
+            socketId:socket.id,
+            username
+        };
         console.log("->", users);
-        io.emit('online', Object.keys(users));
+        io.emit('online', users);
         isonline("after emit");
     });
 
@@ -56,7 +60,7 @@ io.on('connection', (socket) => {
         console.log(reciversocket);
         console.log({sender: senderid, text: text, reciver: reciverid });
         if (reciversocket) {
-            io.to(reciversocket).emit('getmessage', { sender: senderid, text: text, reciver: reciverid });
+            io.to(reciversocket.socketId).emit('getmessage', { sender: senderid, text: text, reciver: reciverid });
             console.log({sender: senderid, text: text, reciver: reciverid });
         }
     })
