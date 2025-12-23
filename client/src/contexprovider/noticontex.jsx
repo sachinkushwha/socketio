@@ -47,7 +47,7 @@ export const Statusprovider = ({ children }) => {
     const handleConnect = () => {
       const myId = localStorage.getItem("chatuserid");
       const myname=localStorage.getItem("chatusername");
-      console.log("connected", myId);
+      console.log("connected", myId,myname);
       if (myId && myname) {
         socket.emit("register", myId, myname);
       }
