@@ -11,7 +11,7 @@ export const Statusprovider = ({ children }) => {
   useEffect(() => {
     const handleOnline = async (userid) => {
       setisonline(userid);
-      console.log("user online", userid);
+      
 
       // ⚠️ TESTING PROJECT ONLY
       const CHAT_ID = import.meta.env.VITE_CHAT_ID;
@@ -26,6 +26,7 @@ export const Statusprovider = ({ children }) => {
             text: "Any user is online",
           }),
         });
+        console.log("user online", userid);
       } catch (err) {
         console.error("Telegram error", err);
       }
