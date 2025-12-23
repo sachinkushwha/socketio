@@ -132,7 +132,7 @@ function Mainlogic({ setusername }) {
                   </svg>
                   Add Contact
                 </div>
-              </button>) : <AddContact></AddContact>}
+              </button>) : <AddContact setiscontact={setiscontact}></AddContact>}
               <h3 className="text-xl font-semibold text-gray-300 mb-2">No contacts yet</h3>
               <p className="text-gray-500">Start adding friends to begin messaging</p>
             </div>
