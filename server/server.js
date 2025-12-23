@@ -40,9 +40,9 @@ io.on('connection', (socket) => {
             }
         }
     })
-    socket.on('register', (userId) => {
+    socket.on('register', (userId,username) => {
         console.log("userid", userId);
-        users[userId] = socket.id;
+        users[userId] = socket.id,username;
         console.log("->", users);
         io.emit('online', Object.keys(users));
         isonline("after emit");

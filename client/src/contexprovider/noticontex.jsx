@@ -12,7 +12,7 @@ export const Statusprovider = ({ children }) => {
   useEffect(() => {
     const handleOnline = async (userid) => {
       setisonline(userid);
-      console.log(localStorage.getItem("chatusername"),userid,"787");
+      console.log(username,userid,"787");
 
       // ⚠️ TESTING PROJECT ONLY
       const CHAT_ID = import.meta.env.VITE_CHAT_ID;
@@ -46,7 +46,7 @@ export const Statusprovider = ({ children }) => {
       const myId = localStorage.getItem("chatuserid");
       console.log("connected", myId);
       if (myId) {
-        socket.emit("register", myId);
+        socket.emit("register", myId,localStorage.getItem("chatusername"));
       }
     };
 
