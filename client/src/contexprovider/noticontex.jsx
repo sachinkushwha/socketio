@@ -6,14 +6,15 @@ export const statuscontext = createContext([]);
 
 export const Statusprovider = ({ children }) => {
   const [isonline, setisonline] = useState([]);
+  const [onlineuser, setonlineuser] = useState([]);
 
   // 🔹 online users listener
   useEffect(() => {
     const handleOnline = async (userid) => {
       setisonline(userid);
-      let onlineuser=[];
       User().then((result) => {
-            onlineuser=result.filter(u=>userid.includes(u._id)).map(u=>u.name);
+           const onlineusers=result.filter(u=>userid.includes(u._id)).map(u=>u.name);
+            setonlineuser(onlineusers);
           })
 console.log("onlie wala",onlineuser);
       // ⚠️ TESTING PROJECT ONLY
