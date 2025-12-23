@@ -4,7 +4,7 @@ import {useNavigate, useParams } from "react-router-dom";
 import socket from "./socket";
 import { Noticontex } from "../contexprovider/noticontex";
 import { statuscontext } from "../contexprovider/noticontex";
-
+import { User } from "../api/api";
 
 export const Chats = ({ username }) => {
 
@@ -16,11 +16,16 @@ export const Chats = ({ username }) => {
   const [chats, setChat] = useState([]);
   // const [isonline, setisonline] = useState([]);
 
+useEffect(()=>{
+  User.then((user)=>{
+    console.log("all users",user);
+  })
+},[]);
+
   const handleclearchat = () => {
     const msg = JSON.parse(localStorage.getItem('chatchat'));
     const clrchat = msg.filter(c => c.reciver !== String(id) && c.sender !== String(id));
     localStorage.setItem('chatchat', JSON.stringify(clrchat));
-    // console.log('jach',clrchat);
     setChat(clrchat);
   }
 
@@ -32,7 +37,6 @@ export const Chats = ({ username }) => {
   }
   useEffect(() => {
     const fchat = JSON.parse(localStorage.getItem('chatchat'));
-    console.log(fchat,"fchat mai kya mila");
     if (fchat) {
       setChat(fchat);
     }

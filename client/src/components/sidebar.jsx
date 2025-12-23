@@ -27,7 +27,7 @@ function Mainlogic({ setusername }) {
     }
   }, [noti.sender]);
 
-console.log("all user",user)
+// console.log("all user",user)
  
   const users = user.filter(u => u.email != localStorage.getItem('chatemail'));
   return (
