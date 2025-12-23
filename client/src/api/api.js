@@ -8,6 +8,7 @@ export const Longin=async(logindata)=>{
     if(data.success){
         localStorage.setItem('chattoken',data.jwtToken);
         localStorage.setItem('chatemail',data.email);
+        localStorage.setItem('chatusername',data.name);
         localStorage.setItem('chatuserid',data.userId);
         window.location.href='/';
     }
