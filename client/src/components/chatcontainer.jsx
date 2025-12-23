@@ -14,7 +14,7 @@ export const Chats = () => {
   const { id } = useParams();
   const [msg, setmsg] = useState('');
   const [chats, setChat] = useState([]);
-  const [username, setusername] = useState([]);
+  const [username, setusername] = useState();
 
 useEffect(()=>{
   User().then((user)=>{
