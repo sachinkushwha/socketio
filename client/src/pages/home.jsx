@@ -27,7 +27,7 @@ export const Index=()=>{
           ${isChatPage ? "block" : "hidden md:block"}
         `}
       >
-       {isChatPage ? <Chats username={username}/>:(<p className="flex justify-center h-screen items-center text-3xl text-gray-200 font-bold">Welcome to Chat</p>)}
+       {isChatPage ? <Chats sidebarusername={username}/>:(<p className="flex justify-center h-screen items-center text-3xl text-gray-200 font-bold">Welcome to Chat</p>)}
       </div>
     </div>
     </>
