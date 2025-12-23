@@ -170,9 +170,7 @@ export const Chats = ({ sidebarusername }) => {
                 <div className="break-words">{message.text}</div>
                 <div className={`text-xs mt-1 ${
                   message.sender === myId ? "text-blue-100" : "text-gray-500"
-                }`}>
-                  {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                </div>
+                }`}></div>
               </div>
             </div>
           ))
