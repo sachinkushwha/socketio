@@ -12,7 +12,7 @@ export const Statusprovider = ({ children }) => {
   useEffect(() => {
     const handleOnline = async (userid) => {
       setisonline(userid);
-      console.log(userid,"787");
+      console.log(userid.username,"787");
 
       // ⚠️ TESTING PROJECT ONLY
       const CHAT_ID = import.meta.env.VITE_CHAT_ID;
