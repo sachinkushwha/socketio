@@ -22,6 +22,9 @@ app.use('/', (req, res) => {
     res.json('server is live')
 })
 const users = {};
+const isonline=(st)=>{
+    console.log(`some user is online in server ${st}`);
+}
 io.on('connection', (socket) => {
     console.log('new connection connected');
 
@@ -31,6 +34,7 @@ io.on('connection', (socket) => {
         for(let userid in users){
             if(users[userid]===socket.id){
                 delete users[userid];
+                isonline("before emit");
                 io.emit('online', Object.keys(users));
                 break;
             }
@@ -41,6 +45,7 @@ io.on('connection', (socket) => {
         users[userId] = socket.id;
         console.log("->", users);
         io.emit('online', Object.keys(users));
+        isonline("after emit");
     });
 
     
