@@ -136,8 +136,10 @@ export const Chats = ({ username }) => {
 
       {/* Input area */}
       <div className="flex items-center border-t p-3 bg-white">
+      <label htmlFor="msg">reply msg</label>
         <input
           type="text"
+          id="msg"
           value={msg}
           onChange={(e) => setmsg(e.target.value)}
           className="flex-1 border rounded-lg px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
