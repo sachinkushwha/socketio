@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
         }
     })
     socket.on('register', (userId,username) => {
-        console.log("userid", userId);
+        console.log("userid", userId,username);
         users[userId] ={
             socketId:socket.id,
             username
