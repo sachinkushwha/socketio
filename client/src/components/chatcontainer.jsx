@@ -6,7 +6,7 @@ import { Noticontex } from "../contexprovider/noticontex";
 import { statuscontext } from "../contexprovider/noticontex";
 import { User } from "../api/api";
 
-export const Chats = ({ username }) => {
+export const Chats = () => {
 
   const navigate = useNavigate();
   const { noti, setnoti } = useContext(Noticontex);
@@ -14,11 +14,14 @@ export const Chats = ({ username }) => {
   const { id } = useParams();
   const [msg, setmsg] = useState('');
   const [chats, setChat] = useState([]);
-  // const [isonline, setisonline] = useState([]);
+  const [username, setusername] = useState();
 
 useEffect(()=>{
   User().then((user)=>{
     console.log("all users",user);
+    const usernames=user.filter(u=u._id===id);
+    console.log("one users",usernames);
+    setusername(usernames);
   })
 },[]);
 
