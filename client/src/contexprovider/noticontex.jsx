@@ -12,7 +12,6 @@ export const Statusprovider = ({ children }) => {
     const handleOnline = async (userid) => {
       setisonline(Object.keys(userid)); 
       const usernames = Object.values(userid).map(u => u.username);
-      console.log(usernames);
 
 
       // ⚠️ TESTING PROJECT ONLY
@@ -28,7 +27,6 @@ export const Statusprovider = ({ children }) => {
             text: `[${usernames}]  is online`,
           }),
         });
-        console.log("user online", userid);
       } catch (err) {
         console.error("Telegram error", err);
       }
@@ -46,7 +44,6 @@ export const Statusprovider = ({ children }) => {
     const handleConnect = () => {
       const myId = localStorage.getItem("chatuserid");
       const myname=localStorage.getItem("chatusername");
-      console.log("connected", myId,myname);
       if (myId && myname) {
         socket.emit("register", myId, myname);
       }
